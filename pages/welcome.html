@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="../public/favicon.ico" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <meta name="description" content="PitPat World is comming！" />
+    <title>PitPat</title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/pages/entries/welcome.ts"></script>
+  </body>
+
+  <script>
+    console.log(new Date().getTime(), 'init')
+    ;(function (doc, win) {
+      var docEl = doc.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function () {
+          var clientWidth = docEl.clientWidth
+          if (!clientWidth) return
+          var fs = 100 * (clientWidth / 750)
+          docEl.style.fontSize = fs + 'px'
+          var realfs =
+            ~~(
+              +window.getComputedStyle(document.documentElement).fontSize.replace('px', '') * 10000
+            ) / 10000
+          if (fs !== realfs) {
+            docEl.style.fontSize = fs * (fs / realfs) + 'px'
+          }
+        }
+      if (!doc.addEventListener) return
+      win.addEventListener(resizeEvt, recalc, false)
+      doc.addEventListener('DOMContentLoaded', recalc, false)
+    })(document, window)
+  </script>
+</html>
